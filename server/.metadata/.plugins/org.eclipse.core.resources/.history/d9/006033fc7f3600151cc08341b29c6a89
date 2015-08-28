@@ -1,0 +1,2 @@
+
+<h1>Temperature is {{readTemp1}} celsius.</h1>

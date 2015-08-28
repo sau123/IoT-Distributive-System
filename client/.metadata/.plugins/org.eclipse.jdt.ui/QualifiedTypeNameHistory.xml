@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.rest.client.MyThread"/>
+<fullyQualifiedTypeName name="com.rest.client.MyThreadRunnable"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClientURI"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClient"/>
+<fullyQualifiedTypeName name="com.mongodb.DB"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="com.mongodb.DBCollection"/>
+<fullyQualifiedTypeName name="com.mongodb.DBObject"/>
+<fullyQualifiedTypeName name="com.mongodb.BasicDBObject"/>
+</qualifiedTypeNameHistroy>

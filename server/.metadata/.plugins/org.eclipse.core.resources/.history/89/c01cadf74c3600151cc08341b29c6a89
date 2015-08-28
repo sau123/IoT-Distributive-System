@@ -1,0 +1,32 @@
+var app = angular.module('DevicesApp',['ngRoute']);
+app.config(function ($routeProvider) { 
+	$routeProvider 
+	.when('/', { 
+		controller: 'ProductController', 
+		templateUrl: '_views/product.html' 
+	})
+	
+	.when('/registerDevice', { 
+		controller: 'RegisterController', 
+		templateUrl: '_views/register.html' 
+	})
+	
+	.when ('/success',{
+//		controller: 'SuccessController',
+		templateUrl: '_views/successPage.html'
+	})
+	
+	.when('/temperature'
+			
+	)
+	
+		
+	.when ('/deviceManagement',{
+//		controller: 'SuccessController',
+		templateUrl: '_views/deviceManagement.html'
+	})
+		
+	.otherwise({ 
+		redirectTo: '/' 
+	}); 
+});

@@ -1,0 +1,12 @@
+
+
+<div data-ng-controller="LocationController" style = "text-align:center" ng-init="processForm()">
+<h2 class = "black1">Location Management</h2>
+
+<div id="map_div" style="height: 400px;">
+<button ng-click="processForm()">Locate</button>
+
+</div>
+
+</div>
+

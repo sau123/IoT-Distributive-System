@@ -1,0 +1,5 @@
+
+
+<div class=black1>Discovering all attributes from the client device.....</div><br>
+<h1 style ="color:black" data-ng-controller="ReadTemperatureController">
+{{exec}}</h1>

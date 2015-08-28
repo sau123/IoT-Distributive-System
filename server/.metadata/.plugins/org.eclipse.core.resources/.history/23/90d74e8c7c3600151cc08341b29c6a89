@@ -1,0 +1,11 @@
+
+
+<form data-ng-submit="processForm()" data-ng-controller="RegisterController" style="color: black">
+	End point : <input type="text" name="endPoint" data-ng-model="endPoint"
+		style="background-color: #E0E0E0" placeholder="Enter the end point">
+	<br> Serial number : <input type="text" name="serialNumber"
+		data-ng-model="serialNumber" style="background-color: #E0E0E0"
+		placeholder="Enter the deviceID"> <br>
+
+	<button type="submit">Add Device</button>
+</form>

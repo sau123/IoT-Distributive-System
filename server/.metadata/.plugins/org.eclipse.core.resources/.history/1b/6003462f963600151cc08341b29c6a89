@@ -1,0 +1,39 @@
+app.controller('ReadTemperatureController', function($scope, $http, $location, $rootScope) { 
+	
+	$scope.getTemperature = function() {
+		 $http({
+		 method  : 'GET',
+		 url     : "rest/jsonservices/read/Temperature",
+		 headers : { 'Content-Type': 'application/xml'}  
+		}).success(function (data) {
+			$rootScope.readTemp1 = data;
+			$scope.readTemp = data;		
+			$location.path('/temperature')
+			console.log(data);
+		})
+		.error(function(data) {
+		console.log('error');
+		});
+	
+	}
+	
+	$scope.getPressure = function() {
+		 $http({
+		 method  : 'GET',
+		 url     : "rest/jsonservices/read/Temperature",
+		 headers : { 'Content-Type': 'application/xml'}  
+		}).success(function (data) {
+			$rootScope.readTemp1 = data;
+			$scope.readTemp = data;		
+			$location.path('/temperature')
+			console.log(data);
+		})
+		.error(function(data) {
+		console.log('error');
+		});
+	
+	}
+	
+	
+	
+})

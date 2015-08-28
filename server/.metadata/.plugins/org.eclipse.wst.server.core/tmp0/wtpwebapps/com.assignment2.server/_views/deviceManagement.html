@@ -1,0 +1,63 @@
+<h2 style = "color:black">Device Management</h2>
+<script>
+document.getElementById("temperature").onChange = function() {mouseDown()};
+function mouseDown(){
+	document.getElementById("hello").innerHTML = "Jhakaas !";
+}
+
+function myFunction(){
+	document.getElementById("xyz").innerHTML = "Print this";
+}
+</script>
+<form action = "" style = "color:white ; background-color:black">
+
+<h4>Enter the device end point : </h4><input type="text" name="endPoint" data-ng-model="endPoint">
+<h4>Enter the device serial number : </h4><input type="text" name="serialNumber" data-ng-model="serialNumber">
+
+<!-- 
+<select style = "background-color:black"> 
+	<optgroup> 
+		<option >Choose Device Management Options </option> 		
+	</optgroup> 
+	<optgroup label="Read"> 
+		<option id = "temperature">Temperature</option> 
+		<option>Pressure</option>
+	</optgroup> 
+	<optgroup label="Discover"> 
+		<option>Discover all attributes</option> 
+	</optgroup>
+	<optgroup label="Execute"> 
+		<option>Scenario : Power Saving</option> 		
+	</optgroup> 
+	<optgroup label="CreateObject"> 
+		<option>Location Monitoring</option> 
+		<option>Security Object</option>
+	</optgroup> 
+	<optgroup label="DeleteObject"> 
+		<option>Location Monitoring</option> 
+		<option>Security Object</option>
+	</optgroup>	 	
+</select>
+-->
+</form>
+
+
+<p style = "color:black" id="xyz"> Hi </p>
+<div class = "abc" style='color:black'>
+    Choose one of the following
+    <ul data-ng-controller="ReadTemperatureController" class = "tryUL">
+        <li>
+        Read
+	        <ul style = "list-style-type:none">
+	        	<li data-ng-click="getTemperature()" >Temperature</li>
+	        	<li data-ng-click="getPressure()" >Pressure</li>
+	        </ul>
+        </li>
+        <li data-ng-click= "getDiscover()">Discover</li>
+        <li data-ng-click= "getExecute()">Execute</li>
+        <li><a href = "#">Create Object</a></li>
+        <li><a href = "#">Delete Object</a></li>
+        
+    </ul>
+</div>
+

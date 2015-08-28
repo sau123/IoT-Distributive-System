@@ -1,0 +1,16 @@
+package com.assignment2.server;
+
+public class Practise
+{
+	public static void main(String args[]){
+
+		System.out.println("hellow world");
+		String ab[] ={"jan","feb","mar"};
+		
+		String a = "aca-ca";
+		if (a.contains("-"))
+			System.out.println("contains");
+		else
+			System.out.println("doesnt contain");
+	}
+}

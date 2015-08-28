@@ -1,0 +1,29 @@
+app.controller('ReadTemperatureController', function($scope, $http, $location) { 
+	
+
+$scope.endPoint='';
+$scope.serialNumber='';
+	
+	
+	$scope.processForm = function() {
+		 $http({
+		 method  : 'GET',
+		 url     : "rest/jsonservices/read/temperature",
+		 data    : $.param({
+		       endPoint : $scope.endPoint, 
+		       serialNumber : $scope.serialNumber
+		 }),  
+		 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  
+		}).success(function (data) {
+			$location.path('/success');			
+			console.log('data');
+		})
+		.error(function(data) {
+		console.log('error');
+		});
+	
+	}
+	
+	
+	
+})

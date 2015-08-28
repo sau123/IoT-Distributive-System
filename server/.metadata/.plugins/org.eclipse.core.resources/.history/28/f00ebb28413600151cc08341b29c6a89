@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>Landed by HTML5 UP</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</head>
+<body class="landing">
+
+	<div id="page-wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1 id="logo">
+				<a href="index.html"></a>
+			</h1>
+			<!-- not used-->
+			<nav id="nav">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="Devices.html">Devices</a></li>
+
+					<li><a href="#">Device Management</a>
+						<ul>
+							<li><a href="AC.html">Air Conditioner</a></li>
+							<li><a href="Thermostat.html">Thermostat</a></li>
+							<li><a href="#">Power Lights</a>
+								<ul>
+									<li><a href="Living.html">Living Room </a></li>
+									<li><a href="Master.html">Master Bed </a></li>
+								</ul></li>
+						</ul></li>
+					<li><a href="elements.html">Security</a></li>
+					<li><a href="elements.html">Location Management</a></li>
+					<li><a href="elements.html">Energy Consumption</a></li>
+					<li><a href="#" class="button special">Sign Up</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Banner -->
+		<section id="banner">
+			<div class="content">
+				<header>
+					<h2>The future is here</h2>
+					<p>
+						Welcome to the IOT distributive System!!<br /> Let SAM's IOT
+						system handle all your devices without any hassle .
+					</p>
+				</header>
+				<span class="image"><img src="images/pic01" alt="" /></span>
+			</div>
+			<a href="#one" class="goto-next scrolly">Next</a>
+		</section>
+
+		<!-- One -->
+		<section id="one" class="spotlight style1 bottom">
+			<span class="image fit main"><img src="images/electronic1.jpg"
+				alt="" /></span>
+			<div class="content">
+				<div class="container">
+					<div class="row">
+						<div class="4u 12u$(medium)">
+							<header>
+								<h2>WHY IOT?</h2>
+								<p>By 2020, there will be 40.9 billion IoT devices.</p>
+							</header>
+						</div>
+						<div class="4u 12u$(medium)">
+							<p>Smart home appliances in its present form, is elegantly designed, functional and smart. 
+							Thanks to the innovations in the technology such as Internet of Things (IoT), that has transformed 
+							our home appliances smarter. </p>
+						</div>
+						<div class="4u$ 12u$(medium)">
+							<p>The appliances are capable of getting booted by itself and communicate with other devices 
+							on a need basis. From a more technical point of view, these smart home appliances can be considered 
+							as a distributed system since they have their own computing and networking capabilities.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a href="#two" class="goto-next scrolly">Next</a>
+		</section>
+
+		<!-- Two -->
+		<section id="two" class="spotlight style2 right">
+			<span class="image fit main"><img src="images/electronic2.jpg"
+				alt="" /></span>
+			<div class="content">
+				<header>
+					<h2>SAM's IOT Distributive System</h2>					
+				</header>
+				<p>Our System is a network of devices. These devices are integrated with software, 
+				sensors and connectivity for objects to communicate or exchange data with each other.</p>
+				<ul class="actions">
+					<li><a href="#" class="button">Learn More</a></li>
+				</ul>
+			</div>
+			<a href="#three" class="goto-next scrolly">Next</a>
+		</section>
+
+		<!-- Three -->
+		<!--section id="three" class="spotlight style3 left">
+					<span class="image fit main bottom"><img src="images/pic04.jpg" alt="" /></span>
+					<div class="content">
+						<header>
+							<h2>Interdum felis blandit praesent sed augue</h2>
+							<p>Accumsan integer ultricies aliquam vel massa sapien phasellus</p>
+						</header>
+						<p>Feugiat accumsan lorem eu ac lorem amet ac arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer mi sed nascetur cep 
+aliquet augue varius tempus lobortis porttitor lorem et accumsan consequat adipiscing lorem.</p>
+						<ul class="actions">
+							<li><a href="#" class="button">Learn More</a></li>
+						</ul>
+					</div>
+					<a href="#four" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- Four -->
+		<section id="four" class="wrapper style1 special fade-up">
+			<div class="container">
+				<header class="major">
+					<h2>Features of our system</h2>
+					<p>Why are we the best ?</p>
+				</header>
+				<div class="box alt">
+					<div class="row uniform">
+						<section class="4u 6u(medium) 12u$(xsmall)">
+							<span class="icon alt major fa-area-chart"></span>
+							<h3>Scalability</h3>
+							<p>Our System addresses the scalability requirements for IOT systems.
+								</p>
+						</section>
+						<section class="4u 6u$(medium) 12u$(xsmall)">
+							<span class="icon alt major fa-comment"></span>
+							<h3>Power Saving</h3>
+							<p>Our system is smart enough to always consume less power.</p>
+						</section>
+						<section class="4u$ 6u(medium) 12u$(xsmall)">
+							<span class="icon alt major fa-flask"></span>
+							<h3>Threading</h3>
+							<p>All IOT devices work simultaneously using the concept of Threading.</p>
+						</section>
+						<section class="4u 6u$(medium) 12u$(xsmall)">
+							<span class="icon alt major fa-paper-plane"></span>
+							<h3>Distributive</h3>
+							<p>Our system is Distributive. Bridges the gap between legacy systems and IOT systems.</p>
+						</section>
+						<section class="4u 6u(medium) 12u$(xsmall)">
+							<span class="icon alt major fa-file"></span>
+							<h3>Reliable</h3>
+							<p>We estimate our reliability factor to be 99.1%</p>
+						</section>
+						<section class="4u$ 6u$(medium) 12u$(xsmall)">
+							<span class="icon alt major fa-lock"></span>
+							<h3>Secure</h3>
+							<p>feature 6 related to diagramfeature 6 related to
+								diagramfeature 6 related to diagram</p>
+						</section>
+					</div>
+				</div>
+				<footer class="major">
+					<ul class="actions">
+						<li><a href="#" class="button">Back to Home Screen</a></li>
+					</ul>
+				</footer>
+			</div>
+		</section>
+
+		<!-- Five -->
+		<section id="five" class="wrapper style2 special fade">
+			<div class="container">
+				<header>
+					<h2>Subscribe to us for updates</h2>
+
+				</header>
+				<form method="post" action="#" class="container 50%">
+					<div class="row uniform 50%">
+						<div class="8u 12u$(xsmall)">
+							<input type="email" name="email" id="email"
+								placeholder="Your Email Address" />
+						</div>
+						<div class="4u$ 12u$(xsmall)">
+							<input type="submit" value="Get Updates" class="fit special" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="http://www.twitter.com"
+					class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="http://www.facebook.com"
+					class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+				<li><a href="http://www.linkedin.com"
+					class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				<li><a href="http://www.instagram.com"
+					class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="http://www.github.com" class="icon alt fa-github"><span
+						class="label">GitHub</span></a></li>
+				<li><a href="http://www.gmail.com" class="icon alt fa-envelope"><span
+						class="label">Email</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; All rights reserved .</li>
+				<li>Design: SG</li>
+			</ul>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.dropotron.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+.outer
+	- (1..3).each do
+		.face
+	-# Wrapping so that nth-child works ...
+	.content
+		- (1..3).each do
+			.inner
+				- (1..6).each do
+					.face

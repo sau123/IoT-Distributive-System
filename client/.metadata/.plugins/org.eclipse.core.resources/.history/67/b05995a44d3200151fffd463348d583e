@@ -1,0 +1,63 @@
+package com.rest.client;
+
+import java.sql.Timestamp;
+import java.util.Random;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
+public class MyThreadRunnable implements Runnable  {
+
+	@Override
+	public void run() {
+		try{
+			int i =0;
+			System.out.println("Check !!");
+			
+			
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds031802.mongolab.com:31802/cmpe273");
+			MongoClient client;
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = database.getCollection("ClientFridge");	
+			DBObject maxx = collection.findOne();
+			String max = (String)maxx.get("MaximumPeriod");	
+			String min = (String)maxx.get("MinimumPeriod");	
+			int some =Integer.parseInt(min);
+			int convertmax = Integer.parseInt(max);
+			int times1000min = some*1000;
+			//Sleeping for the minimum period.
+			Thread.sleep(some*1000);
+			while(i < 20)
+			{
+				Random randomGenerator = new Random();
+				int randomInt = randomGenerator.nextInt(30);				
+				Client client1 = Client.create();								
+				WebResource webResource = client1.resource("http://localhost:8080/com.assignment2.server/rest/jsonservices/notify/"+randomInt);
+				ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
+				if (response.getStatus() != 200) {
+					throw new RuntimeException("Failed : HTTP error code : "+ response.getStatus());
+				}
+				java.util.Date date= new java.util.Date();
+				String output = response.getEntity(String.class); 	
+				Thread.sleep(1000);
+				i++;
+
+			} 
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
+
+}

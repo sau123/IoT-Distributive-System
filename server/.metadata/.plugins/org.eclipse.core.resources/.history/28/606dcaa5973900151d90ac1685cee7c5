@@ -1,0 +1,545 @@
+package com.assignment2.server;
+
+
+import java.util.Iterator;
+import java.util.Map;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jettison.json.JSONObject;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+
+public class MongoService {
+	static String clientInServer;
+	static String result;
+	static String lastTuple;
+	static String getResourceDetails(String deviceId){
+		try {
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds053380.mongolab.com:53380/cmpe273");
+			MongoClient client;
+			BasicDBObject query = new BasicDBObject();
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = database.getCollection("bootdB"); 
+			query.put("endPoint",deviceId);
+			DBCursor dcursor = collection.find(query);    
+
+			if(dcursor.hasNext()){
+				result = dcursor.next().toString();	 
+				return result;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;	
+	}
+	public static String discover() // working
+	{
+		try{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client;
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = database.getCollection("ClientResourceFridge"); 
+			DBObject one = collection.findOne();
+			JsonFactory factory = new JsonFactory();
+			ObjectMapper mapper = new ObjectMapper(factory);
+			JsonNode rootNode = mapper.readTree(one.toString());  
+			Iterator<Map.Entry<String,JsonNode>> fieldsIterator = rootNode.getFields();
+			String returnString = "Current Attributes of the device are : \n";
+			while (fieldsIterator.hasNext()) {
+				Map.Entry<String,JsonNode> field = fieldsIterator.next();
+				returnString+=" > " + field.getKey()+"\n";				
+			}
+			return returnString;
+		}
+		catch (Exception e)		{
+			e.printStackTrace();
+			return "Error in discover function in Mongo Service!";
+		}
+	}
+	public static void registerDeviceUI(String end, String serial)// working
+	{
+		try
+		{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds053380.mongolab.com:53380/cmpe273");
+			MongoClientURI mongoLab1 = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			MongoClient client1 = new MongoClient(mongoLab1);
+			DB database = client.getDB("cmpe273");	
+			DB database1 = client1.getDB("cmpe273");
+			DBCollection collectionResource = database1.getCollection("ClientResourceFridge");
+			DBCollection collection = database.getCollection("regdB");
+			DBCollection collectionBoot = database.getCollection("bootdB");				
+			String getDeviceType ="";
+			// if endpoint is present in bootdb
+			BasicDBObject query = new BasicDBObject();
+			query.put("endPoint", end);
+			DBCursor uniqueTuple = collectionBoot.find(query);
+			DBObject v=null;
+			if (uniqueTuple.hasNext()){
+				v = uniqueTuple.next();
+				getDeviceType =(String)v.get("deviceType");
+				System.out.println(getDeviceType);
+			}
+			else
+				System.out.println("No such device in the bootstrap db!");
+
+			// if end & serial is present in regdb, act accordingly
+			BasicDBObject qu = new BasicDBObject();
+			qu.put("serialNumber", serial);
+			qu.put("endPoint", end);
+			DBCursor db = collection.find(qu);
+
+			if (!db.hasNext()){
+				JSONObject partsData = new JSONObject(v.toString());
+				BasicDBObject document = new BasicDBObject();				
+				document.put("endPoint", end);
+				document.put("serialNumber", serial);
+				document.put("LifeTime", "86400"); 		// new attributes
+				document.put("BindingMode", "UDP");
+				document.put("DeviceName","Refrigerator");
+				document.put("sensor", partsData.optString("sensor"));
+				document.put("manufacturer", partsData.optString("manufacturer"));
+				document.put("firmware", partsData.optString("firmware"));
+				document.put("currentDate", partsData.optString("currentDate"));
+				//				document.put("ClientURI", uri);			
+				collection.insert(document);				
+				System.out.println("Success : Values inserted !!"+v.toString()); 
+				int i =0;
+				if(getDeviceType.equalsIgnoreCase("Refrigerator"))
+					while (i<5){
+						RandomServices.randomFridge(end, serial); // inputs 5 values in fridge
+						i++;
+					}
+				else if (getDeviceType.equalsIgnoreCase("AC"))
+					while (i<5){
+						RandomServices.randomAC(end, serial); // inputs 5 values in fridge
+						i++;
+					}
+				else if (getDeviceType.equalsIgnoreCase("Thermostat"))
+					while (i<5){
+						RandomServices.randomThermostat(end, serial); // inputs 5 values in fridge
+						i++;
+					}
+				else if (getDeviceType.equalsIgnoreCase("DoorLock"))
+					while (i<5){
+						RandomServices.randomDoorLock(end, serial); // inputs 5 values in fridge
+						i++;
+					}
+
+				BasicDBObject documentResource = new BasicDBObject();
+				documentResource.put("endPoint", end);
+				documentResource.put("serialNumber", serial);
+				documentResource.put("DeviceType",getDeviceType);
+				documentResource.put("Mode","Default");
+				documentResource.put("sensor", partsData.optString("sensor"));
+				documentResource.put("manufacturer", partsData.optString("manufacturer"));
+				documentResource.put("firmware", partsData.optString("firmware"));
+				documentResource.put("MinimumPeriod", "1");
+				documentResource.put("MaximumPeriod", "10");
+				collectionResource.insert(documentResource);
+			}
+			else
+				System.out.println("Device Already present !");
+		}	
+		catch(Exception e)	 {			
+			e.printStackTrace();
+		}
+	}
+	public static void write (String deviceType, String attribute, String what) // working
+	{
+		try
+		{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");		
+			DBCollection collection = database.getCollection(deviceType); // ClientFridge, ClientThermostat, ClientAC
+			DBCursor dcursor = collection.find();
+			dcursor.sort(new BasicDBObject("Timestamp",-1));
+
+			DBObject t=null;
+			if (dcursor.hasNext()){
+				t = dcursor.next(); //latest client json				
+			}
+
+			String k="";
+			if (t!=null)
+				k = t.toString();
+			else
+				k="";
+			BasicDBObject document = new BasicDBObject();
+			document.append("$set", new BasicDBObject().append(attribute,what));
+			JSONObject parts = new JSONObject(k);
+			BasicDBObject searchQuery1 = new BasicDBObject();
+			searchQuery1.put("Timestamp", parts.optString("Timestamp"));
+			BasicDBObject jj = (BasicDBObject)t;
+			collection.update(jj, document);
+			//			return "Attribute Value Changed Successfully !! ";		
+		}// end of try block 
+		catch (Exception e){
+			e.printStackTrace();
+			//			return "Error in the write function.";
+		}		
+	}
+	public static String writeAttribute (String write, String what) // working
+	{
+		try
+		{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");		
+			DBCollection collection = database.getCollection("ClientResourceFridge");
+			DBObject dcursor = collection.findOne();			
+			BasicDBObject document = (BasicDBObject)dcursor;
+			BasicDBObject doc1 = new BasicDBObject("$set" , new BasicDBObject().append(write,what));						
+			collection.update(document, doc1);					
+			return "Attribute "+write+" value is modified successfully !";			
+		}// end of try block 
+		catch (Exception e){
+			e.printStackTrace();
+			return "Error in the writeAttribute function.";
+		}	
+	}
+	public static String getLastFiveValues(String combinedString)
+	{
+		String deviceType;
+		String choice;
+		if (combinedString.contains("-")){
+			String array[]=combinedString.split("-");
+			choice = array[0];
+			deviceType = array[1];
+		}
+		else 
+		{
+			deviceType = "ClientAC";
+			choice = "Temperature";
+		}
+		try
+		{
+			
+				MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+				MongoClient client = new MongoClient(mongoLab);
+				DB database = client.getDB("cmpe273");
+				DBCollection collection = null;
+				if(deviceType.equalsIgnoreCase("Refrigerator"))
+					collection = database.getCollection("ClientFridge");
+				else if (deviceType.equalsIgnoreCase("AC"))
+					collection = database.getCollection("ClientAC");
+				else if (deviceType.equalsIgnoreCase("Thermostat"))
+					collection = database.getCollection("ClientThermostat");
+				else if (deviceType.equalsIgnoreCase("DoorLock"))
+					collection = database.getCollection("ClientDoorLock");
+				else 
+					collection = database.getCollection("ClientDoorLock"); // always get clientFridge collection by default
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("Error in the last five values ");
+		}
+	}
+public static String read (String combinedString) // working
+	{
+		String deviceType;
+		String choice;
+		if (combinedString.contains("-")){
+			String array[]=combinedString.split("-");
+			choice = array[0];
+			deviceType = array[1];
+		}
+		else 
+		{
+			deviceType = "ClientDoorLock";
+			choice = "Status";
+		}
+		try
+		{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = null;
+			if(deviceType.equalsIgnoreCase("Refrigerator"))
+				collection = database.getCollection("ClientFridge");
+			else if (deviceType.equalsIgnoreCase("AC"))
+				collection = database.getCollection("ClientAC");
+			else if (deviceType.equalsIgnoreCase("Thermostat"))
+				collection = database.getCollection("ClientThermostat");
+			else if (deviceType.equalsIgnoreCase("DoorLock"))
+				collection = database.getCollection("ClientDoorLock");
+			else 
+				collection = database.getCollection("ClientDoorLock"); // always get clientFridge collection by default
+
+
+			DBCursor dcursor = collection.find();
+			dcursor.sort(new BasicDBObject("Timestamp",-1));
+			String d="";
+			if (dcursor.hasNext()){
+				d = dcursor.next().get(choice).toString();
+			}
+			return d;           
+		}// end of try block 
+		catch (Exception e){
+			e.printStackTrace();
+			return "Error in the read function.";
+		} 
+	}
+	static String postValues(String id, String serial, String uri){ // for Registration
+		try
+		{			
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds053380.mongolab.com:53380/cmpe273");
+			MongoClient client;
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");			
+			DBCollection collection = database.getCollection("regdB");
+			JSONObject partsData = new JSONObject(id);
+			String end = partsData.optString("endPoint");			
+			BasicDBObject qu = new BasicDBObject();
+			qu.put("serialNumber", serial);
+			qu.put("endPoint", end);			
+			DBCursor db = collection.find(qu);
+
+			if (!db.hasNext()){
+				BasicDBObject document = new BasicDBObject();				
+				document.put("endPoint", partsData.optString("endPoint"));
+				document.put("serialNumber", serial);
+				document.put("DeviceName","Fridge");
+				document.put("sensor", partsData.optString("sensor"));
+				document.put("manufacturer", partsData.optString("manufacturer"));
+				document.put("firmware", partsData.optString("firmware"));
+				document.put("currentDate", partsData.optString("currentDate"));			
+				document.put("LifeTime", "86400"); 		// new attributes
+				document.put("BindingMode", "UDP");
+				document.put("ClientURI", uri);			
+				collection.insert(document);				
+				return "Success : Values inserted !!"; 
+			}
+			else 
+				return "The device with this endpoint and serial number is already present !";
+		}
+		catch(Exception e)	 {			
+			e.printStackTrace();
+			return "Error during registration UI!!";
+		}
+	}
+	public static String updateLifetime(String id, String newLifetime){
+		try
+		{				
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds053380.mongolab.com:53380/cmpe273");
+			MongoClient client;
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = database.getCollection("regdB");
+			DBCursor c = collection.find();
+			DBObject last = collection.findOne();
+			while (c.hasNext()){
+				last = c.next();
+			}
+			String k = last.toString();
+			BasicDBObject document = new BasicDBObject();
+			document.append("$set", new BasicDBObject().append("LifeTime",newLifetime));
+			JSONObject parts = new JSONObject(k);
+			BasicDBObject searchQuery1 = new BasicDBObject();
+			searchQuery1.put("serialNumber", parts.optString("serialNumber"));
+			searchQuery1.put("endPoint", parts.optString("endPoint"));
+			collection.update(searchQuery1, document);		
+			c = collection.find();
+			last = collection.findOne();
+			while (c.hasNext()){
+				last = c.next();
+			}			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return "LifeTime Value Updated !! ";
+
+	}
+	public static String updateBindingMode(String id, String newBindingMode){
+		try
+		{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds053380.mongolab.com:53380/cmpe273");
+			MongoClient client;
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = database.getCollection("regdB");
+			DBCollection collectionCC = database.getCollection("currentClientsdB");
+			DBCursor c = collection.find();
+			DBObject last = collection.findOne();
+			while (c.hasNext()){
+				last = c.next();
+			}
+			String k = last.toString();
+			JSONObject partsData = new JSONObject(k);
+			BasicDBObject document = new BasicDBObject();
+			document.append("$set", new BasicDBObject().append("BindingMode",newBindingMode));
+			BasicDBObject searchQuery = new BasicDBObject().append("endPoint", partsData.optString("endPoint"))
+					.append("serialNumber", partsData.optString("serialNumber"));
+			collection.update(searchQuery, document);
+			last = collectionCC.findOne();
+			collectionCC.remove(last);			
+			c = collection.find();
+			last = collection.findOne();
+			while (c.hasNext()){
+				last = c.next();
+			}
+			collectionCC.insert(last);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return "Binding Mode Updated !!";
+	}
+	public static String deleteValue(String id) {
+		try
+		{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds053380.mongolab.com:53380/cmpe273");
+			MongoClient client;
+			client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");
+			DBCollection collection = database.getCollection("regdB");
+			DBCollection collectionCC = database.getCollection("currentClientsdB");			
+			DBCursor c = collection.find();
+			DBObject last = collection.findOne();
+			while (c.hasNext()){
+				last = c.next();
+			}
+			collection.remove(last);
+			last = collectionCC.findOne();
+			collectionCC.remove(last);		
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return "De-registered Successfully !!";
+	}
+	/*public static String execute() //working
+	{
+		String returnString ="";
+		System.out.println("Sending execute instructions to the Device...\n");
+		returnString+="Sending execute instructions to the Device...\n";
+		String readPressure = read("Pressure");
+		String readTemperature = read("Temperature");
+		if (Integer.parseInt(readPressure)>57){			
+			write("Pressure","40");
+			System.out.println("Pressure changed appropriately !");
+			returnString+="Pressure changed appropriately !\n";
+			write("Mode", "PowerSaving");
+			System.out.println("Mode changed to Power Saving. Reason : High Pressure");
+			returnString+="Mode changed to Power Saving. Reason : High Pressure\n";
+		}
+		else {
+			System.out.println("The refrigerator is working on Appropriate Pressure.");
+			returnString+="The refrigerator is working on Appropriate Pressure.\n";
+		}
+		if (Integer.parseInt(readTemperature)<15){			
+			write("Temperature","17");
+			System.out.println("Temperature changed appropriately !");
+			returnString+="Temperature changed appropriately !\n";
+			write("Mode", "PowerSaving");
+			System.out.println("Mode changed to Power Saving. Reason : Low Temperature ");
+			returnString+="Mode changed to Power Saving. Reason : Low Temperature \n";
+		}
+		else {
+			System.out.println("The refrigerator is working on Appropriate Temperature.");
+			returnString+="The refrigerator is working on Appropriate Temperature.\n";
+		}
+		//		returnString = returnString.replace(/(?:\r\n|\r|\n)/g , <br />);
+		return returnString;
+	}
+	 */
+	public static void createObject() // working
+	{
+		try{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");	
+			DBCollection collection = database.getCollection("ClientResourceFridge");	
+			DBCursor dcursor = collection.find();
+			//dcursor.sort(new BasicDBObject("Timestamp",-1));
+			DBObject t=null;
+			if (dcursor.hasNext()){
+				t = dcursor.next(); //latest client json	
+			}
+			BasicDBObject query = (BasicDBObject)t;
+			BasicDBObject obj = new BasicDBObject();
+			obj.put("Latitude", "320.0");
+			obj.put("Longitude", "452.0");
+			BasicDBObject create = new BasicDBObject();
+			create.put("$push", new BasicDBObject("LocationMonitor",obj));
+			collection.update(query,create);
+		}
+		catch(Exception e){	
+			System.out.println("Error in the create Object function");
+			e.printStackTrace();	
+		}	
+	}
+	public static void deleteObject(){
+		try{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");	
+			DBCollection collection = database.getCollection("ClientResourceFridge");
+			DBCursor dcursor = collection.find();
+			DBObject t=null;
+			if (dcursor.hasNext()){
+				t = dcursor.next(); //latest client json	
+			}	
+			BasicDBObject query = (BasicDBObject)t;
+			DBObject update = new BasicDBObject();
+			update.put("$unset", new BasicDBObject("LocationMonitor",""));
+			collection.update(query, update);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public static String voltageChart(){
+		String[] returnArray = new String[10];
+		String[] xAxis= new String [10];
+		String[] yAxis= new String [10];
+		String xValues ="";
+		try{
+			MongoClientURI mongoLab = new MongoClientURI("mongodb://admin:admin@ds047722.mongolab.com:47722/cmpe273");
+			MongoClient client = new MongoClient(mongoLab);
+			DB database = client.getDB("cmpe273");		
+			DBCollection collection = database.getCollection("ClientAC");			
+			DBCursor cursor = collection.find();	
+//			cursor.sort(new BasicDBObject("Timestamp",-1)); // not needed 
+			int i = 0;
+			xValues = "[";
+			while(cursor.hasNext() && i < 5){	
+				DBObject t =cursor.next();
+//				returnArray[i]="{"+t.get("Timestamp").toString().substring(11,19)+","+t.get("Voltage").toString()+"}";
+				xValues+="\""+t.get("Timestamp").toString().substring(11,19)+"\",";						
+//				xAxis[i]=t.get("Timestamp").toString().substring(11,19);
+//				yAxis[i]=t.get("Voltage").toString();
+				i++;
+			}
+			xValues=xValues.substring(0,xValues.length()-1)+"]";  // to remove the last , and append ]
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return xValues;		
+	}
+	public static void main(String args[]){
+		System.out.println("herllow wordl");
+		String a = voltageChart();
+
+		System.out.println(a);
+		
+		
+	}
+}

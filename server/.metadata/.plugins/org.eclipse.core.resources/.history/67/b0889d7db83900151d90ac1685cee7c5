@@ -1,0 +1,13 @@
+
+
+<div data-ng-controller="EfficiencyController" ng-init="pageLoad()">
+<h2 class = "black1">Efficiency Charts </h2>
+
+
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto;"></div>    
+<form ng-submit=callenergyConsumption()>
+<button type = "submit" style = 'color:black; text-align:"center">Reduce Consumption</button>
+</form>
+</div>
+

@@ -1,0 +1,16 @@
+
+
+<div data-ng-controller="EfficiencyController" >
+<h2 class = "black1">Efficiency Charts </h2>
+
+
+<div id="trycontainer"></div>
+<div id="trysliders">
+	<table>
+		<tr><td>Alpha Angle</td><td><input id="R0" type="range" min="0" max="45" value="15"/> <span id="R0-value" class="value"></span></td></tr>
+	    <tr><td>Beta Angle</td><td><input id="R1" type="range" min="0" max="45" value="15"/> <span id="R1-value" class="value"></span></td></tr>
+	</table>
+</div>
+    
+</div>
+

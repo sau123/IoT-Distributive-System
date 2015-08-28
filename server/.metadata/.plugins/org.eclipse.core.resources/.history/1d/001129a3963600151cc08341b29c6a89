@@ -1,0 +1,3 @@
+
+<h1 style ="color:black" data-ng-controller="ReadTemperatureController">
+The current Pressure reading for the device is {{readPres}} celsius.</h1>

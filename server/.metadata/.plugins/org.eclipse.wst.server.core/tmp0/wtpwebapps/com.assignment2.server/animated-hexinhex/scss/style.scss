@@ -1,0 +1,123 @@
+$animation-length: 6s;
+// There are 4 steps (so keep $step-length <= 25%)
+$step-length: 25%;
+$animation-delay: -$animation-length * 4 * ($step-length / 100%);
+
+html, body { height: 100%; }
+body { font-size: 100px; overflow: hidden; background: #000; }
+
+.outer
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 2em;
+	height: 2em;
+	margin: -1em 0 0 -1em;
+	/* border: 1px solid #f00; */
+	transform-style: preserve-3d;
+	transform: rotateX(-35deg) rotateY(-45deg);
+}
+
+/*.content { transform-style: preserve-3d; }*/
+.inner
+{
+	position: absolute;
+	top: .5em;
+	left: .5em;
+	width: 1em;
+	height: 1em;
+	transform-style: preserve-3d;
+}
+
+$inner-base-transforms:
+	translate3d(-.5em, -.5em, -.5em),
+	translate3d(-.5em, .5em, .5em) rotateY(90deg) rotateZ(-90deg),
+	translate3d(.5em, .5em, -.5em) rotateX(90deg) rotateZ(90deg);
+//step-start
+@function ss($cube-id, $step-num)
+{
+	@return (($cube-id - 1) / 3 + ($step-num - 1)) * $step-length;
+}
+//step-end
+@function se($cube-id, $step-num)
+{
+	@return ($cube-id / 3 + ($step-num - 1)) * $step-length;
+}
+@for $i from 1 through 3
+{
+	$tr: nth($inner-base-transforms, $i);
+	@keyframes inner#{$i}
+	{
+		from, #{ss($i, 1)}
+		{
+			transform: $tr translate3d(.5em,.5em,0) rotateZ( 0deg) translate3d(0,-.5em,.5em) rotateY(0deg) translate3d(-.5em,0,-.5em);
+		}
+		#{se($i, 1)}, #{ss($i, 2)}
+		{
+			transform: $tr translate3d(.5em,.5em,0) rotateZ(90deg) translate3d(0,-.5em,.5em) rotateY(0deg) translate3d(-.5em,0,-.5em);
+		}
+		#{se($i, 2)}, #{ss($i, 3)}
+		{
+			transform: $tr translate3d(.5em,.5em,0) rotateZ(180deg) translate3d(0,-.5em,.5em) rotateY(0deg) translate3d(-.5em,0,-.5em);
+		}
+		// #{se($i, 3)}, #{ss($i, 4)}
+		#{se($i, 3)}, #{ss(1, 4)}
+		{
+			transform: $tr translate3d(.5em,.5em,0) rotateZ(180deg) translate3d(0,-.5em,.5em) rotateY(90deg) translate3d(-.5em,0,-.5em);
+		}
+		// #{se($i, 4)}, to
+		#{se(3, 4)}, to
+		{
+			transform: $tr translate3d(.5em,.5em,0) rotateZ(180deg) translate3d(0,-.5em,.5em) rotateY(90deg) translate3d(.5em,0,-.5em);
+		}
+	}
+	.inner:nth-child(#{$i}) { animation: inner#{$i} $animation-length $animation-delay infinite; }
+}
+
+.face
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 1px solid #fff;
+	background: #000;
+	
+}
+
+.outer > .face:nth-child(1) { transform: translateZ(-1em); }
+.outer > .face:nth-child(2) { transform: translateX(-1em) rotateY(90deg); }
+.outer > .face:nth-child(3) { transform: translateY( 1em) rotateX(90deg); }
+
+.inner > .face:nth-child(1) { transform: translateZ( .5em); }
+.inner > .face:nth-child(2) { transform: translateX( .5em) rotateY(90deg); }
+.inner > .face:nth-child(3) { transform: translateY(-.5em) rotateX(90deg); }
+.inner > .face:nth-child(4) { transform: translateZ(-.5em); }
+.inner > .face:nth-child(5) { transform: translateX(-.5em) rotateY(90deg); }
+.inner > .face:nth-child(6) { transform: translateY( .5em) rotateX(90deg); }
+
+/* Colors */
+.outer > .face:nth-child(1) { background: #7f007f; }
+.outer > .face:nth-child(2) { background: #007f7f; }
+.outer > .face:nth-child(3) { background: #7f7f00; }
+.inner:nth-child(2) .face:nth-child(6),
+.inner:nth-child(1) .face:nth-child(1) { background: #0040bf; }
+.inner:nth-child(2) .face:nth-child(5),
+.inner:nth-child(1) .face:nth-child(2) { background: #7f00bf; }
+.inner:nth-child(2) .face:nth-child(4),
+.inner:nth-child(1) .face:nth-child(3) { background: #00007f; }
+.inner:nth-child(3) .face:nth-child(6),
+.inner:nth-child(2) .face:nth-child(1) { background: #40bf00; }
+.inner:nth-child(3) .face:nth-child(5),
+.inner:nth-child(2) .face:nth-child(2) { background: #00bf7f; }
+.inner:nth-child(3) .face:nth-child(4),
+.inner:nth-child(2) .face:nth-child(3) { background: #007f00; }
+.inner:nth-child(1) .face:nth-child(6),
+.inner:nth-child(3) .face:nth-child(1) { background: #bf007f; }
+.inner:nth-child(1) .face:nth-child(5),
+.inner:nth-child(3) .face:nth-child(2) { background: #bf7f00; }
+.inner:nth-child(1) .face:nth-child(4),
+.inner:nth-child(3) .face:nth-child(3) { background: #7f0000; }

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Animated hexinhex</title>
+    
+    
+    <link rel="stylesheet" href="css/normalize.css">
+
+    
+        <style>
+      html, body {
+  height: 100%;
+}
+
+body {
+  font-size: 100px;
+  overflow: hidden;
+  background: #000;
+}
+
+.outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2em;
+  height: 2em;
+  margin: -1em 0 0 -1em;
+  /* border: 1px solid #f00; */
+  transform-style: preserve-3d;
+  transform: rotateX(-35deg) rotateY(-45deg);
+}
+
+/*.content { transform-style: preserve-3d; }*/
+.inner {
+  position: absolute;
+  top: .5em;
+  left: .5em;
+  width: 1em;
+  height: 1em;
+  transform-style: preserve-3d;
+}
+
+@keyframes inner1 {
+  from, 0% {
+    transform: translate3d(-0.5em, -0.5em, -0.5em) translate3d(0.5em, 0.5em, 0) rotateZ(0deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  8.33333%, 25% {
+    transform: translate3d(-0.5em, -0.5em, -0.5em) translate3d(0.5em, 0.5em, 0) rotateZ(90deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  33.33333%, 50% {
+    transform: translate3d(-0.5em, -0.5em, -0.5em) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  58.33333%, 75% {
+    transform: translate3d(-0.5em, -0.5em, -0.5em) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(90deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  100%, to {
+    transform: translate3d(-0.5em, -0.5em, -0.5em) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(90deg) translate3d(0.5em, 0, -0.5em);
+  }
+}
+.inner:nth-child(1) {
+  animation: inner1 6s -6s infinite;
+}
+
+@keyframes inner2 {
+  from, 8.33333% {
+    transform: translate3d(-0.5em, 0.5em, 0.5em) rotateY(90deg) rotateZ(-90deg) translate3d(0.5em, 0.5em, 0) rotateZ(0deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  16.66667%, 33.33333% {
+    transform: translate3d(-0.5em, 0.5em, 0.5em) rotateY(90deg) rotateZ(-90deg) translate3d(0.5em, 0.5em, 0) rotateZ(90deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  41.66667%, 58.33333% {
+    transform: translate3d(-0.5em, 0.5em, 0.5em) rotateY(90deg) rotateZ(-90deg) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  66.66667%, 75% {
+    transform: translate3d(-0.5em, 0.5em, 0.5em) rotateY(90deg) rotateZ(-90deg) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(90deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  100%, to {
+    transform: translate3d(-0.5em, 0.5em, 0.5em) rotateY(90deg) rotateZ(-90deg) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(90deg) translate3d(0.5em, 0, -0.5em);
+  }
+}
+.inner:nth-child(2) {
+  animation: inner2 6s -6s infinite;
+}
+
+@keyframes inner3 {
+  from, 16.66667% {
+    transform: translate3d(0.5em, 0.5em, -0.5em) rotateX(90deg) rotateZ(90deg) translate3d(0.5em, 0.5em, 0) rotateZ(0deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  25%, 41.66667% {
+    transform: translate3d(0.5em, 0.5em, -0.5em) rotateX(90deg) rotateZ(90deg) translate3d(0.5em, 0.5em, 0) rotateZ(90deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  50%, 66.66667% {
+    transform: translate3d(0.5em, 0.5em, -0.5em) rotateX(90deg) rotateZ(90deg) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(0deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  75%, 75% {
+    transform: translate3d(0.5em, 0.5em, -0.5em) rotateX(90deg) rotateZ(90deg) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(90deg) translate3d(-0.5em, 0, -0.5em);
+  }
+  100%, to {
+    transform: translate3d(0.5em, 0.5em, -0.5em) rotateX(90deg) rotateZ(90deg) translate3d(0.5em, 0.5em, 0) rotateZ(180deg) translate3d(0, -0.5em, 0.5em) rotateY(90deg) translate3d(0.5em, 0, -0.5em);
+  }
+}
+.inner:nth-child(3) {
+  animation: inner3 6s -6s infinite;
+}
+
+.face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  background: #000;
+}
+
+.outer > .face:nth-child(1) {
+  transform: translateZ(-1em);
+}
+
+.outer > .face:nth-child(2) {
+  transform: translateX(-1em) rotateY(90deg);
+}
+
+.outer > .face:nth-child(3) {
+  transform: translateY(1em) rotateX(90deg);
+}
+
+.inner > .face:nth-child(1) {
+  transform: translateZ(0.5em);
+}
+
+.inner > .face:nth-child(2) {
+  transform: translateX(0.5em) rotateY(90deg);
+}
+
+.inner > .face:nth-child(3) {
+  transform: translateY(-0.5em) rotateX(90deg);
+}
+
+.inner > .face:nth-child(4) {
+  transform: translateZ(-0.5em);
+}
+
+.inner > .face:nth-child(5) {
+  transform: translateX(-0.5em) rotateY(90deg);
+}
+
+.inner > .face:nth-child(6) {
+  transform: translateY(0.5em) rotateX(90deg);
+}
+
+/* Colors */
+.outer > .face:nth-child(1) {
+  background: #7f007f;
+}
+
+.outer > .face:nth-child(2) {
+  background: #007f7f;
+}
+
+.outer > .face:nth-child(3) {
+  background: #7f7f00;
+}
+
+.inner:nth-child(2) .face:nth-child(6),
+.inner:nth-child(1) .face:nth-child(1) {
+  background: #0040bf;
+}
+
+.inner:nth-child(2) .face:nth-child(5),
+.inner:nth-child(1) .face:nth-child(2) {
+  background: #7f00bf;
+}
+
+.inner:nth-child(2) .face:nth-child(4),
+.inner:nth-child(1) .face:nth-child(3) {
+  background: #00007f;
+}
+
+.inner:nth-child(3) .face:nth-child(6),
+.inner:nth-child(2) .face:nth-child(1) {
+  background: #40bf00;
+}
+
+.inner:nth-child(3) .face:nth-child(5),
+.inner:nth-child(2) .face:nth-child(2) {
+  background: #00bf7f;
+}
+
+.inner:nth-child(3) .face:nth-child(4),
+.inner:nth-child(2) .face:nth-child(3) {
+  background: #007f00;
+}
+
+.inner:nth-child(1) .face:nth-child(6),
+.inner:nth-child(3) .face:nth-child(1) {
+  background: #bf007f;
+}
+
+.inner:nth-child(1) .face:nth-child(5),
+.inner:nth-child(3) .face:nth-child(2) {
+  background: #bf7f00;
+}
+
+.inner:nth-child(1) .face:nth-child(4),
+.inner:nth-child(3) .face:nth-child(3) {
+  background: #7f0000;
+}
+
+    </style>
+
+    
+        <script src="js/prefixfree.min.js"></script>
+
+    
+  </head>
+
+  <body>
+
+    <div class='outer'>
+  <div class='face'></div>
+  <div class='face'></div>
+  <div class='face'></div>
+  <div class='content'>
+    <div class='inner'>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+    </div>
+    <div class='inner'>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+    </div>
+    <div class='inner'>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+      <div class='face'></div>
+    </div>
+  </div>
+</div>
+    
+        <script src="js/index.js"></script>
+
+    
+    
+    
+  </body>
+</html>

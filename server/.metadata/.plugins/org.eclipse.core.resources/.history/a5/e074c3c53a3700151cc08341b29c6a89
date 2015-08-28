@@ -1,0 +1,52 @@
+var app = angular.module('DevicesApp',['ngRoute']);
+app.config(function ($routeProvider) { 
+	$routeProvider 
+	.when('/', { 
+		controller: 'ProductController', 
+		templateUrl: '_views/product.html' 
+	})
+	
+	.when('/registerDevice', { 
+		controller: 'RegisterController', 
+		templateUrl: '_views/register.html' 
+	})
+	
+	.when ('/success',{
+//		controller: 'SuccessController',
+		templateUrl: '_views/successPage.html'
+	})
+	
+	.when ('/deviceManagement',{
+ 		controller: 'ReadTemperatureController',
+		templateUrl: '_views/deviceManagement.html'
+	})
+	
+	.when ('/energyConsumption',{
+ 		controller: 'ReadTemperatureController',
+		templateUrl: '_views/energyConsumption.html'
+	})
+	
+	.when('/temperature',{
+		controller: 'ReadTemperatureController',
+		templateUrl: '_views/temperature.html'
+	})
+	 
+	.when('/pressure',{
+		controller: 'ReadTemperatureController',
+		templateUrl: '_views/pressure.html'
+	})
+	
+	.when('/discover',{
+		controller: 'ReadTemperatureController',
+		templateUrl: '_views/discover.html'
+	})
+	
+	.when('/execute',{
+		controller: 'ReadTemperatureController',
+		templateUrl: '_views/execute.html'
+	})	
+	
+	.otherwise({ 
+		redirectTo: '/' 
+	}); 
+});

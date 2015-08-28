@@ -1,0 +1,18 @@
+package com.assignment2.server;
+
+public class Practise
+{
+	public static void main(String args[]){
+
+		String attribute[] = {"temp", "pres", "volt"};
+		String deviceType[] = {"AC", "Thermostat", "Refrigerator"};
+
+
+		for (int i = 0;i<3;i++)
+		{
+			for (int j =0;j<3;j++)
+				System.out.println(attribute[j]+deviceType[i]);
+			System.out.println();
+		}
+	}
+}

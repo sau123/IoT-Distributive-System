@@ -1,0 +1,121 @@
+<html>
+<head>
+
+<script type = "text/javascript">
+function callFunction(){
+	var myselect = document.getElementById("selectOption");
+	alert(myselect);
+}
+function myFunction(){
+	document.getElementById("xyz").innerHTML = "Print this";
+}
+</script>
+	
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/main.css" />
+	
+
+<!-- Include the AngularJS library -->
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+
+<!-- Include the AngularJS routing library -->
+<script src="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
+
+<!-- Include the jQuery library -->
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+
+	
+
+</head>
+
+<body data-ng-app="DevicesApp">
+
+	<!-- Header -->
+	<header id="header">
+		<h1 id="logo">
+			<a href="index.html"></a>
+		</h1>
+		<!-- not used-->
+		<nav id="nav">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="Devices.html">Devices</a></li>
+
+				<li><a href="#/deviceManagement">Device Management</a>
+					<ul>
+						<li><a href="AC.html">Air Conditioner</a></li>
+						<li><a href="Thermostat.html">Thermostat</a></li>
+						<li><a href="#">Power Lights</a>
+							<ul>
+								<li><a href="Living.html">Living Room </a></li>
+								<li><a href="Master.html">Master Bed </a></li>
+							</ul></li>
+					</ul></li>
+				<li><a href="#/security">Security</a></li>
+				<li><a href="#/location">Security</a></li>
+				<li><a href="#/efficiency">Efficiency </a></li>
+				<li><a href="#/energyConsumption">Energy Consumption</a></li>
+				<li><a href="#" class="button special">Sign Up</a></li>
+			</ul>
+		</nav>
+	</header>
+
+<!-- MAIN -->
+<div class = "trymain"> 
+	<div class="trycontainer">
+	
+	<div data-ng-view></div>>
+	
+	</div>
+</div>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<ul class="icons">
+			<li><a href="http://www.twitter.com" class="icon alt fa-twitter"><span
+					class="label">Twitter</span></a></li>
+			<li><a href="http://www.facebook.com"
+				class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+			<li><a href="http://www.linkedin.com"
+				class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+			<li><a href="http://www.instagram.com"
+				class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+			<li><a href="http://www.github.com" class="icon alt fa-github"><span
+					class="label">GitHub</span></a></li>
+			<li><a href="http://www.gmail.com" class="icon alt fa-envelope"><span
+					class="label">Email</span></a></li>
+		</ul>
+		<ul class="copyright">
+			<li>&copy; All rights reserved .</li>
+			<li>Design: SG</li>
+		</ul>
+	</footer>
+
+<!-- Modules -->
+   <script src="_js/app.js"></script>
+   
+   <!-- Controllers -->
+   <script src="_js/controllers/ProductController.js"></script>
+   <script src="_js/controllers/RegisterController.js"></script>
+   <script src="_js/controllers/SuccessController.js"></script>
+   <script src="_js/controllers/DeviceManagementController.js"></script>
+   <script src="_js/controllers/ReadTemperatureController.js"></script>
+   <script src="_js/controllers/EnergyConsumptionController.js"></script>
+   <script src="_js/controllers/SecurityController.js"></script>
+   <script src="_js/controllers/EfficiencyController.js"></script>   
+
+   <!-- Services -->
+
+
+</body>
+
+</html>

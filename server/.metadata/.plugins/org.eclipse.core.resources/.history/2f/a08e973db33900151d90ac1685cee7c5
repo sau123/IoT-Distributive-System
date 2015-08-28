@@ -1,0 +1,90 @@
+	var values;
+	var timeValues;
+
+app.controller('EfficiencyController', function($scope, $http, $location) {
+	
+	var x = ["Mon", "Tue", "Wed", "Thur"];
+	$scope.pageLoad=function(){
+
+			$http({
+				method  : 'GET',
+				url     : "rest/jsonservices/readLastFiveValues/Timestamp-AC",
+				headers : { 'Content-Type': 'text/plain '}
+			}).success(function (data) {
+				beforeMyFunction(data);
+			})
+			.error(function(data) {	
+				$scope.storeValues = "Error!!!"
+					console.log('error');
+			});				
+	}
+	
+	function beforeMyFunction(data1){
+		$http({
+			method  : 'GET',
+			url     : "rest/jsonservices/readLastFiveValues/Temperature-AC",
+			headers : { 'Content-Type': 'text/plain '}
+		}).success(function (data) {
+			console.log(data1," : ",data)
+			myfunction(data1, data); // data = temperature, data1 = timestamp
+		})
+		.error(function(data) {	
+			$scope.storeValues = "Error!!!"
+				console.log('error');
+		});				
+		
+	}
+	function myfunction(timeValues, values){
+		console.log("inside myfunction",values,timeValues);
+	$(function () {
+		console.log("inside myfunction jquery");
+	    $('#container').highcharts({
+	        title: {
+	            text: 'Visualization Charts',
+	            x: -20 //center
+	        },
+	        subtitle: {
+	            text: 'Source: SAMs Distributive IOT System',
+	            x: -20
+	        },
+	        xAxis: {
+	        	 categories: timeValues
+	        	 
+//	        	 categories: values
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Temperature in Celsius'
+	            },
+	            plotLines: [{
+	                value: 0,
+	                width: 1,
+	                color: '#808080'
+	            }]
+	        },
+	        tooltip: {
+	            valueSuffix: ' C'
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            borderWidth: 0
+	        },
+	        series: [{
+	            name: 'Refrigerator',
+	            data: values
+	        }
+	        
+//	        , {
+//	            name: 'Air Conditioner',
+//	            data: [-0.2, 0.8, 5.7, 11.3]
+//	        }  
+	        ]
+	    });
+	}
+
+	); 
+	}	
+
+})

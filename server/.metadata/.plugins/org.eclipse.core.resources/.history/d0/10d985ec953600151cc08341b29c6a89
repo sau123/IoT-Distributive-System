@@ -1,0 +1,2 @@
+
+<h1 style ="color:black"data-ng-controller="ReadTemperatureController">Temperature is {{readTemp1}} celsius.</h1>

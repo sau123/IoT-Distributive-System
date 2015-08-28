@@ -1,0 +1,9 @@
+<div data-ng-repeat="product in products" class="col-md-6">
+	<div class="trythumbnail">
+		<img data-ng-src="{{ product.cover }}">
+		<p class ="trytitle">{{product.name | uppercase}}</p>
+		<a href = "#/registerDevice">
+			<button class = "trytitle" type="button" >Register</button>
+		</a>
+	</div>
+</div>

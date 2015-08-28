@@ -1,0 +1,141 @@
+app.controller('SecurityController', function($scope, $http, $location) {
+
+	$scope.pageLoad = function (){
+		loadGarageDoor();		
+		loadImage();
+	}
+
+	
+	function loadImage(){
+		$http({
+			method  : 'GET',
+			url     : "rest/jsonservices/read/image-DoorLock",
+			headers : { 'Content-Type': 'application/xml'}  
+		}).success(function (data) {
+			$scope.storeImage = data;
+			getStatus();
+		})
+		.error(function(data) {	
+			$scope.doorStatus = "OPEN Error!!!"
+				console.log('error');
+		});
+	}
+	
+	function loadGarageDoor(){
+		$http({
+			method  : 'GET',
+			url     : "rest/jsonservices/read/Status-DoorLock",
+			headers : { 'Content-Type': 'application/xml'}  
+		}).success(function (data) {
+			$scope.storeStatus = data;
+			getStatus();
+		})
+		.error(function(data) {	
+			$scope.doorStatus = "OPEN Error!!!"
+				console.log('error');
+		});
+	}	
+	
+	
+	// code to close the door
+	$scope.openDoor = function(){
+//	$scope.storeStatus ="OPEN";
+//	$scope.storeImage ="_images/door3.jpg";
+	clse();
+//	clseImage();
+	
+	function clse(){
+		 $http({
+			 method  : 'POST',
+			 url     : "rest/jsonservices/write",
+			 data    : $.param({
+				 	deviceType : "ClientDoorLock", 
+					attribute : "Status",
+					newValue : "OPEN"
+			 }),  
+			 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  
+			}).success(function (data) {
+				clseImage();
+//				getStatus();
+//				$scope.products[2].cover = '_images/door4.jpg';  // changes to different door
+			})
+			.error(function(data) {
+			console.log('error');
+			});	
+	}
+	
+	function clseImage(){
+		console.log("inside write image function")
+		 $http({
+			 method  : 'POST',
+			 url     : "rest/jsonservices/write",
+			 data    : $.param({
+				 	deviceType : "ClientDoorLock", 
+					attribute : "image",
+					newValue : "_images/door3.jpg"
+			 }),  
+			 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  
+			}).success(function (data) {
+				console.log("inside success of clseImage");
+				postMessage();
+//				getStatus();
+//				$scope.products[2].cover = '_images/door4.jpg';  // changes to different image
+			})
+			.error(function(data) {
+			console.log('error');
+			});	
+	}
+}	
+	
+	function postMessage(){
+		console.log("inside post message function")
+		 $http({
+			 method  : 'POST',
+			 url     : "https://api.twilio.com//2010-04-01/Accounts/AC36e7d3c12bb880f1bcdcba206fee16cb/Messages",
+			 data    : $.param({
+				 	From : "+17329431351", 
+					To : "(201) 208-9051",
+					Body : "\nMessage from SAMs IOT Distributive System : \nAlert level : HIGH.\nSomeone is trying to access one of the door. \nIf it was not you, reply back with HELP to this number."
+			 }),  
+			 headers : { 
+				 'Content-Type': 'application/x-www-form-urlencoded',
+				 'Authorization' : 'Basic QUMzNmU3ZDNjMTJiYjg4MGYxYmNkY2JhMjA2ZmVlMTZjYjplOTczZTFkNTRiMjUyMmJlYWUyNWQxYWZiNTlmYTQzYQ=='	 
+
+			 }  
+			}).success(function (data) {				
+//				$scope.products[2].cover = '_images/door4.jpg';  // changes to different image
+			})
+			.error(function(data) {
+			console.log('error');
+			});				
+	}
+	
+	
+	function getStatus(){
+		$scope.products = [ 
+{ 	
+	name: 'Front Door', 
+	cover: '_images/door1.jpg',
+	camera: 'Camera001',
+	status: 'CLOSED'	
+},
+{ 
+	name: 'Back Door', 
+	cover: '_images/door2.jpg',
+	camera: 'Camera002',
+	status: 'CLOSED'
+
+},
+{
+	name: 'Garage Door', 
+	cover: $scope.storeImage,
+	camera: 'Camera003',
+	status: $scope.storeStatus	
+}
+]
+		
+	}
+
+	
+
+})

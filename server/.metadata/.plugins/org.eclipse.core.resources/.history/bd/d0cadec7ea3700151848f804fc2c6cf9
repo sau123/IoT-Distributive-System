@@ -1,0 +1,10 @@
+package com.assignment2.server;
+
+public class Practise
+{
+	public static void main(String args[]){
+		System.out.println("hello world");
+		String array[] = {"temp", "pres", "volt"};
+		System.out.println(array[0]);
+	}
+}

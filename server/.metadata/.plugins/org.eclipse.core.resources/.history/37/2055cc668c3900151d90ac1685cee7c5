@@ -1,0 +1,9 @@
+
+
+<div data-ng-controller="EfficiencyController" >
+<h2 class = "black1">Efficiency Charts </h2>
+
+
+    
+</div>
+

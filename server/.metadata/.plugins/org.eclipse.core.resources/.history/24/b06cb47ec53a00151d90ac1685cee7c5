@@ -1,0 +1,25 @@
+
+
+<div data-ng-controller="SecurityController" data-ng-init = "pageLoad()">
+<h2 class = "black1">Security Management </h2>
+<form style="color: black">
+<div data-ng-repeat="product in products" class="col-md-4">
+
+	<div class="trythumbnail">
+		<img data-ng-src="{{ product.cover }}"></div>
+		<p style = "background-color:black;color:white" class ="trytitle">{{product.name | uppercase}}</p>
+		<pre> 
+		<button class = "trytitle" type="button" >CAMERA : {{product.camera}}</button>
+		<button class = "trytitle" type="button" >STATUS : {{product.status | uppercase}}</button>		
+		<button class = "trytitle" type="button" data-ng-click="removeDoor()">DELETE </button>
+		</pre>
+	
+</div>	
+	<div style="text-align:center">      
+  	<button class="black1" ng-click="closeDoor()">Close all Doors</button>
+	</div>
+</form>
+</div>
+    
+
+

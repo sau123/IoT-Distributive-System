@@ -1,0 +1,24 @@
+
+
+<div data-ng-controller="EnergyConsumptionController">
+<h2 class = "black1">Energy Consumption Management </h2>
+<form data-ng-submit="optimize()" style="color: black">
+<div data-ng-repeat="product in products" class="col-md-4">
+	<div class="trythumbnail">
+		<img data-ng-src="{{ product.cover }}"></div>
+		<p style = "background-color:black;color:white" class ="trytitle">{{product.name | uppercase}}</p>
+		<pre> 
+		<button class = "trytitle" type="button" >Current Temperature: {{product.temperature}}</button>
+		<button class = "trytitle" type="button" >Current Pressure   : {{product.pressure}}</button>
+		<button class = "trytitle" type="button" >Current Voltage    : {{product.voltage}}</button>
+		</pre>
+	
+</div>	
+	<div style="text-align:center">      
+  	<button class="black1" type="submit" >Optimize</button>
+	</div>
+</form>
+</div>
+    
+
+

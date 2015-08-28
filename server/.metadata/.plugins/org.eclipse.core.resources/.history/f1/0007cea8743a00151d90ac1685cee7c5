@@ -1,0 +1,58 @@
+app.controller('LocationController', function($scope, $http, $location) { 
+
+	$scope.processForm = function(){
+		console.log("inside process of location controller ");
+		/*
+		 * declare map as a global variable
+		 */
+		var map;
+
+		console.log("inside addDomListener")
+
+		var map = new google.maps.Map(document.getElementById("map_div"), {
+			center: new google.maps.LatLng(37.3354377,-121.8849723),
+			zoom: 14,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+
+		/*
+		 * create infowindow (which will be used by markers)
+		 */
+		var infoWindow = new google.maps.InfoWindow();
+
+		/*
+		 * marker creater function (acts as a closure for html parameter)
+		 */
+		function createMarker(options, html) {
+			var marker = new google.maps.Marker(options);
+			if (html) {
+				google.maps.event.addListener(marker, "click", function () {
+					infoWindow.setContent(html);
+					infoWindow.open(options.map, this);
+				});
+			}
+			return marker;
+			}
+
+		/*
+		 * add markers to map
+		 */
+		var marker0 = createMarker({
+			position: new google.maps.LatLng(37.3354377,-121.8849723),
+			map: map,
+			icon: "http://1.bp.blogspot.com/_GZzKwf6g1o8/S6xwK6CSghI/AAAAAAAAA98/_iA3r4Ehclk/s1600/marker-green.png"
+		}, "<h1 style='color:black'>Air Conditioner</h1><p>HOME</p>");
+
+		var marker1 = createMarker({
+			position: new google.maps.LatLng(37.3254377,-121.8848723),
+			map: map
+		}, "<p>HOME</p><h3 style='color:black'>Refrigerator</h3>");
+
+		var marker2 = createMarker({
+			position: new google.maps.LatLng(37.3364377,-121.8809723),
+			map: map
+		}, "<h1 style='color:black'>Cell Phone</h1><p>OFFICE</p>");
+//		});
+
+	}
+})
