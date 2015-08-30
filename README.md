@@ -53,7 +53,7 @@ Security Management   | Implemented the Messaging IaaS to get a message incase o
 Efficiency Management | Optimizes the attribute values of the devices like temperature, voltage, pressure if they are above their respective threshold value. If the user wish to, he can change the current values of the device to optimal values and the same is reflected in the MongoDB.
 
 ######Team Members : 
-Nikitha Raviraj
+Nikitha Raviraj  
 Saumeel Gajera  
 Vinod Baalaji A  
 Ramya Sharadh
