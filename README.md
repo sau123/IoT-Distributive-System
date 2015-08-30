@@ -54,7 +54,7 @@ Efficiency Management | Optimizes the attribute values of the devices like tempe
 
 ######Team Members : 
 Nikitha Raviraj
-Saumeel Gajera
-Vinod Baalaji A
+Saumeel Gajera  
+Vinod Baalaji A  
 Ramya Sharadh
 
