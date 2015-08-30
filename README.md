@@ -50,5 +50,11 @@ Scenario | Description
 Energy Management | This tab of the website displays the current attribute values of the devices. It displays the last 5 attribute values of each IoT devices and makes a decision whether to optimize it.
 Location Management   | Displays the current location of all the devices. Since the project didn't consist of actual devices, the latitude and longitude of the device are hardcoded.
 Security Management   | Implemented the Messaging IaaS to get a message incase of security breach.   
-Efficiency Management | Optimizes the attribute values of the devices like temperature, voltage, pressure if they are above their respective threshold value. If the user wish to, he can change the current values of the device to optimal values and the same is reflected in the MongoDB,
+Efficiency Management | Optimizes the attribute values of the devices like temperature, voltage, pressure if they are above their respective threshold value. If the user wish to, he can change the current values of the device to optimal values and the same is reflected in the MongoDB.
+
+######Team Members : 
+Nikitha Raviraj
+Saumeel Gajera
+Vinod Baalaji A
+Ramya Sharadh
 
