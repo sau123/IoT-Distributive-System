@@ -1,6 +1,6 @@
 # IoT-Distributive-System
 
-######Installation :  
+## Installation :  
 You would require :  
 
 1. **Eclipse** or any IDE to run this project. I used Eclipse-Mars 4.5.0 version.  
@@ -10,15 +10,18 @@ You would require :
   
   
 This project implements the Open Mobile Alliance(OMA) Lightweight machine to machine(LWM2M) specifications :  
-#####1) BootStrap :  
-This is the first step of the IoT distributive system, where all the devices are boostrapped to the MongodB. Only devices which are bootstrapped can be registered.
+#### 1) BootStrap :  
+  This is the first step of the IoT distributive system, where all the devices are boostrapped to the MongodB. Only devices which are bootstrapped can be registered.
 
-#####2) Registration 
+Ref : [OMA LWM2M Spec](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf)
+
+
+#### 2) Registration
     a) Register  
     b) Update   
     c) Delete  
     
-#####3) Device Management  
+#### 3) Device Management  
     a) Create  
     b) Read  
     c) Discover  
@@ -28,7 +31,7 @@ This is the first step of the IoT distributive system, where all the devices are
     g) Create Object (Eg. Security Object, GPS Object)  
     h) Delete Object  
     
-#####4) Information Reporting  
+#### 4) Information Reporting  
     a) Observe   
     b) Notify   
     c) Cancel Observation  
@@ -52,7 +55,7 @@ Location Management   | Displays the current location of all the devices. Since 
 Security Management   | Implemented the Messaging IaaS to get a message incase of security breach.   
 Efficiency Management | Optimizes the attribute values of the devices like temperature, voltage, pressure if they are above their respective threshold value. If the user wish to, he can change the current values of the device to optimal values and the same is reflected in the MongoDB.
 
-######Team Members : 
+###### Team Members : 
 Nikitha Raviraj  
 Saumeel Gajera  
 Vinod Baalaji A  
